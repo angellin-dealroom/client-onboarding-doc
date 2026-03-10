@@ -160,7 +160,7 @@
     transition: border-color 0.15s;
     display: none;
   }
-  .day-time-select.visible { display: block; }
+  .day-time-select.visible { display: inline-block; }
   .day-time-select:focus { border-color: var(--ink); }
 </style>
 </head>
@@ -639,7 +639,7 @@
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(payload)
       });
-      btn.textContent = '✓ Submitted — we'll be in touch!';
+      btn.textContent = '✓ Submitted — we\'ll be in touch!';
       btn.style.background = '#3a7d4a';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -680,8 +680,12 @@
     const row = document.getElementById('row-' + day);
     const sel = document.getElementById('time-' + day);
     row.classList.toggle('selected', cb.checked);
-    sel.classList.toggle('visible', cb.checked);
-    if (cb.checked) buildDaySlots(day, currentTZ);
+    if (cb.checked) {
+      buildDaySlots(day, currentTZ);
+      sel.style.display = 'inline-block';
+    } else {
+      sel.style.display = 'none';
+    }
   }
 
   function setTZ(tz) {
